@@ -97,7 +97,7 @@ $books = $result->fetchAll();
 
 
 
-      <a class="col-5 col-sm-3" href='book.php?id=<?php echo $book['book_id'] & $book['book_title'] ?>'> <img
+      <a class="col-5 col-sm-3" href='book.php?id=<?php echo $book['book_id'] ?>'> <img
           src=" book-covers/<?php echo $book['book_image'] ?>" class="card-img-top"
           alt="<?php echo $book['book_title'] ?>"></a>
       <?php else : ?>

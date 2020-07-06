@@ -9,7 +9,7 @@ require "db.php";
 
 $sql = "SELECT * FROM books";
 $result = $db->query($sql);
-
+$books = $result->fetch();
 
 
 ?>
@@ -39,66 +39,65 @@ $result = $db->query($sql);
 
 
 
-    <?php $id = $_GET['id']; ?>
 
 
+    <?php
+    if (isset($_GET['id'])) {
+      $search = $_GET['id'];
+      $sth = $db->prepare("SELECT * FROM books WHERE  book_title like '%$search%'  or book_id like '%$search%' or book_image  like'%$search%' ");
+      $sth->setFetchMode(PDO::FETCH_OBJ);
+      $sth->execute();
+      if ($row = $sth->fetch()) { ?>
 
+    <div class="row">
+      <?php if ($row->book_id) : ?>
 
+      <a class="col-5 col-sm-3" href='book.php?id=<?php echo $row->book_id ?>  '> <img
+          src=" book-covers/<?php echo $row->book_image ?> " class="card-img-top"
+          alt=" <?php echo $row->book_title ?>"></a>
 
-
-
-
-
-
-
-
-
-
-    <div class="row no-gutters">
-
-
-
-      <?php foreach ($result as $row) :
-
-      ?>
-      <a href='book.php?id=<?php echo $row['book_id'] ?>'>
-        <div class="container">
-
-          <div class="col-md-4">
-            <?php if ($row['book_image']) : ?>
-
-
-            <img src=" book-covers/<?php echo  $row['book_image'] ?>" class="card-img"
-              alt=" <?php echo $row['book_title'] ?>">
-          </div>
-
-
-          <?php else : ?>
-
-          <div class="col-md-4">
-            <div class="card-img"><?php echo  $row['book_title'] ?> </div>
-          </div>
-
-          <?php endif; ?>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $row['book_title'] ?></h5>
-
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content.
-                This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
+      <?php else : ?>
+      <a class="col-5 col-sm-3" href='book.php?id=<?php echo $row->book_id ?>'>
+        <div class=" card-img-top">
+          <div class="title"><?php echo $row->book_title ?> </div>
         </div>
       </a>
 
 
-      <?php endforeach; ?>
+
 
 
 
     </div>
+    <?php endif; ?>
+    <? else {
+      echo "nothing";
+    }?>
+    <?php
+
+      }
+    }  ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
