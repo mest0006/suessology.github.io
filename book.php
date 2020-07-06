@@ -49,31 +49,34 @@ $books = $result->fetch();
       $sth->execute();
       if ($row = $sth->fetch()) { ?>
 
-    <div class="row">
-      <?php if ($row->book_id) : ?>
 
-      <a class="col-5 col-sm-3" href='book.php?id=<?php echo $row->book_id ?>  '> <img
-          src=" book-covers/<?php echo $row->book_image ?> " class="card-img-top"
-          alt=" <?php echo $row->book_title ?>"></a>
+    <?php if ($row->book_id) : ?>
 
-      <?php else : ?>
-      <a class="col-5 col-sm-3" href='book.php?id=<?php echo $row->book_id ?>'>
-        <div class=" card-img-top">
-          <div class="title"><?php echo $row->book_title ?> </div>
+
+    <a class="card mb-3" href='book.php?id=<?php echo $row->book_id ?>  '>
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src=" book-covers/<?php echo $row->book_image ?> " class="card-img-top"
+            alt=" <?php echo $row->book_title ?>">
         </div>
-      </a>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"> <?php echo $row->book_title ?></h5>
+            <p class="card-text"><?php echo $row->book_description ?>.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </a>
 
 
 
-
-
-
-    </div>
-    <?php endif; ?>
-    <? else {
+  </div>
+  <?php endif; ?>
+  <? else {
       echo "nothing";
     }?>
-    <?php
+  <?php
 
       }
     }  ?>

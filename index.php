@@ -54,7 +54,7 @@ $books = $result->fetchAll();
     <?php
     if (isset($_POST['submit-search'])) {
       $search = $_POST['search'];
-      $sth = $db->prepare("SELECT * FROM books WHERE  book_title like '%$search%'  ");
+      $sth = $db->prepare("SELECT * FROM books WHERE  book_title like '%$search%'   or book_id like '%$search%' or book_image  like'%$search%'  ");
       $sth->setFetchMode(PDO::FETCH_OBJ);
       $sth->execute();
       if ($row = $sth->fetch()) { ?>
@@ -92,7 +92,7 @@ $books = $result->fetchAll();
 
       <?php foreach ($books as $book) : ?>
 
-      <?php if ($book['book_image']) : ?>
+      <?php if ($book['book_id']) : ?>
 
 
 
